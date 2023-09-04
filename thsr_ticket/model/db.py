@@ -11,6 +11,7 @@ from thsr_ticket.configs.web.param_schema import BookingModel, ConfirmTicketMode
 class Record(NamedTuple):
     personal_id: str = None
     phone: str = None
+    email: str = None
     start_station: int = None
     dest_station: int = None
     outbound_time: str = None
@@ -30,6 +31,7 @@ class ParamDB:
         data = Record(
             ticket.personal_id,
             ticket.phone_num,
+            ticket.email,
             book_model.start_station,
             book_model.dest_station,
             book_model.outbound_time,

@@ -1,14 +1,15 @@
-from typing import Iterable
+from typing import Iterable, Optional
 
 from thsr_ticket.model.db import Record
 from thsr_ticket.model.web.booking_form.station_mapping import StationMapping
 
 
-def history_info(hists: Iterable[Record], select: bool = True) -> int:
+def history_info(hists: Iterable[Record], select: bool = False) -> Optional[int]:
     for idx, r in enumerate(hists, 1):
         print("第{}筆紀錄".format(idx))
         print("  身分證字號: " + r.personal_id)
         print("  手機號碼: " + r.phone)
+        print("  電子信箱: " + r.email)
         print("  起程站: " + StationMapping(r.start_station).name)
         print("  到達站: " + StationMapping(r.dest_station).name)
         t_str = r.outbound_time
@@ -17,5 +18,5 @@ def history_info(hists: Iterable[Record], select: bool = True) -> int:
 
     if select:
         sel = input("請選擇紀錄或是Enter跳過: ")
-        return int(sel)-1 if sel != "" else None
+        return int(sel) - 1 if sel != "" else None
     return None

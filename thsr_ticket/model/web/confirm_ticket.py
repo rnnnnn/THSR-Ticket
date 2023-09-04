@@ -1,3 +1,4 @@
+import re
 from typing import Mapping, Any
 from jsonschema import validate
 
@@ -10,9 +11,11 @@ class ConfirmTicket(AbstractParams):
         # User input
         self._personal_id: str = None
         self._phone: str = ""
+        self._email: str = ""
 
         self.id_input_radio: int = 0
         self.member_radio: str = None
+        self.member_account: str = None
 
     def get_params(self, val: bool = True) -> Mapping[str, Any]:
         params = {
@@ -21,12 +24,13 @@ class ConfirmTicket(AbstractParams):
             "idInputRadio": self.id_input_radio,
             "dummyId": self.personal_id,
             "dummyPhone": self.phone,
-            "email": "",
+            "email": self.email,
             "agree": "on",
             "isGoBackM": "",
             "backHome": "",
             "TgoError": "1",
             "TicketMemberSystemInputPanel:TakerMemberSystemDataView:memberSystemRadioGroup": self.member_radio,
+            "TicketMemberSystemInputPanel:TakerMemberSystemDataView:memberSystemRadioGroup:memberShipNumber": self.member_account,
         }
 
         if val:
@@ -54,3 +58,15 @@ class ConfirmTicket(AbstractParams):
         if len(value) != 0 and not value.startswith("09"):
             raise ValueError("Wrong prefix with the phone number: {}".format(value))
         self._phone = value
+
+    @property
+    def email(self) -> str:
+        return self._email
+
+    @email.setter
+    def email(self, value: str) -> None:
+        regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
+        if not re.fullmatch(regex, value):
+            raise ValueError("Invalid email")
+        self._emaile = value
+

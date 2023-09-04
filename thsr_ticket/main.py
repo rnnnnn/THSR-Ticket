@@ -1,19 +1,20 @@
 import sys
+import time
 sys.path.append("./")
 
-from thsr_ticket.remote.endpoint_client import EndpointClient
-from thsr_ticket.model.json.v1.train import Train
+from input_validation import input_profile
 from thsr_ticket.controller.booking_flow import BookingFlow
 
-
 def main():
-    flow = BookingFlow()
-    flow.run()
-
+    profile = input_profile()
+    Booking_flag = True
+    try:
+        while Booking_flag:
+            flow = BookingFlow()
+            _, Booking_flag = flow.run(profile, Booking_flag)
+            time.sleep(1)
+    except KeyboardInterrupt:
+        print("\nInterrupted by user. Exiting...")
 
 if __name__ == "__main__":
-    #client = EndpointClient()
-    #resp = client.get_trains_by_date("2020-01-25")
-    #train = Train().from_json(resp[0])
-
     main()
