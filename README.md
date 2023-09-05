@@ -48,7 +48,7 @@ The script will guide you through the ticket booking process. You will be prompt
 
 **Date:** Please enter the date of your journey in the format YYYY-MM-DD.
 
-**Time:** Please enter the time slot for your journey. There are 38 choices available, corresponding to the departure times listed below. The system will automatically select the earliest available train within the next 2 hours that has seats based on your input time.
+**Time:** Please enter the time slot for your journey. There are 38 choices available, corresponding to the departure times listed below. The system will automatically select the earliest available train within the next 1 hour that has seats based on your input time.
 ```
 1 -  12:01 AM
 2 -  12:30 AM

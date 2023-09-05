@@ -1,15 +1,14 @@
-#!/usr/bin/env python
 import os
 import random
 import time
-import cv2
 from typing import List, Union
 
-import numpy as np
+import numpy as np  # type: ignore
+import matplotlib.pyplot as plt  # type: ignore
 from PIL import Image, ImageFont
-from PIL.ImageDraw import Draw
-from sklearn.linear_model import Ridge
-from sklearn.preprocessing import PolynomialFeatures
+from PIL.ImageDraw import Draw  # type: ignore
+from sklearn.linear_model import Ridge  # type: ignore
+from sklearn.preprocessing import PolynomialFeatures  # type: ignore
 
 CHARS = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ"
 
