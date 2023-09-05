@@ -1,3 +1,4 @@
+from typing import Tuple, Optional
 from requests.models import Response
 
 from thsr_ticket.controller.confirm_train_flow import ConfirmTrainFlow
@@ -21,7 +22,7 @@ class BookingFlow:
         self.error_feedback = ErrorFeedback()
         self.show_error_msg = ShowErrorMsg()
 
-    def run(self, data, booking_flag) -> Response:
+    def run(self, data, booking_flag) -> Tuple[Optional[Response], bool]:
         # self.show_history()
 
         try:

@@ -25,21 +25,21 @@ class BookingForm(AbstractParams):
             12: Zuoying
         """
         super(BookingForm, self).__init__()
-        self._start_station: int = None  # Required
-        self._dest_station: int = None  # Required
+        self._start_station: int = 0  # Required
+        self._dest_station: int = 0  # Required
         self._class_type: int = 0
-        self._search_by: str = None  # Required
+        self._search_by: str = ""  # Required
         self._types_of_trip: int = 0
-        self._outbound_date: str = None  # Required
-        self._outbound_time: str = None  # Required
-        self._inbound_date: str = None
+        self._outbound_date: str = ""  # Required
+        self._outbound_time: str = ""  # Required
+        self._inbound_date: str = ""
         self._inbound_time: str = ""
         self._adult_ticket_num: str = "1F"
         self._child_ticket_num: str = "0H"
         self._disabled_ticket_num: str = "0W"
         self._elder_ticket_num: str = "0E"
         self._college_ticket_num: str = "0P"
-        self.security_code: str = None  # Required
+        self.security_code: str = ""  # Required
 
         # Window seat
         self.seat_prefer: str = "Window seat"
@@ -110,11 +110,11 @@ class BookingForm(AbstractParams):
         self._class_type = value
 
     @property
-    def search_by(self) -> int:
+    def search_by(self) -> str:
         return self._search_by
 
     @search_by.setter
-    def search_by(self, value: int) -> None:
+    def search_by(self, value: str) -> None:
         self._validate_value("bookingMethod", value)
         self._search_by = value
 

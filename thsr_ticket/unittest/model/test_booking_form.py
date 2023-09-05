@@ -46,8 +46,8 @@ def test_seat_prefer(val):
 def test_search_by(val):
     with pytest.raises(ValueError):
         book.search_by = val
-    book.search_by = 0
-    assert book.search_by == 0
+    book.search_by = ""
+    assert book.search_by == ""
 
 
 @pytest.mark.parametrize("val", [

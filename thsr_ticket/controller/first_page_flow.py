@@ -72,8 +72,7 @@ class FirstPageFlow:
         ):
             return time_str
 
-        default_value = int(default_value)
-        time_str = AVAILABLE_TIME_TABLE[default_value - 1]
+        time_str = AVAILABLE_TIME_TABLE[int(default_value) - 1]
         if time_str.endswith('N'):
             time_str = time_str.replace('N', 'PM')
         elif time_str.endswith('A'):
@@ -83,7 +82,7 @@ class FirstPageFlow:
         selected_time = datetime.strptime(time_str, '%I%M%p').time()
         formatted_time = selected_time.strftime('%I%M%p').lstrip('0')  # 12-hour format without leading 0
         print(f"Selected {time_type}: {formatted_time}\r\n")
-        return AVAILABLE_TIME_TABLE[default_value - 1]
+        return AVAILABLE_TIME_TABLE[int(default_value) - 1]
 
     def select_ticket_num(self, ticket_type: TicketType, default_ticket_num: int = 1) -> str:
         if self.record and (
