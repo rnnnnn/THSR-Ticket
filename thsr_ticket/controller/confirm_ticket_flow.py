@@ -23,15 +23,23 @@ class ConfirmTicketFlow:
                 raise ValueError(f"Key '{key}' not found in data.")
 
         page = BeautifulSoup(self.train_resp.content, features='html.parser')
-        ticket_model = ConfirmTicketModel(
-            personal_id=self.set_personal_id(ID_number=data["ID_number"]),
-            phone_num=self.set_phone_num(phone_number=data["phone_number"]),
-            email=self.set_email_address(email_address=data["email_address"]),
-            member_radio=_parse_member_radio(page),
-            member_account=_parse_member_account(page, ID_number=data["ID_number"]),
-        )
 
-        json_params = ticket_model.json(by_alias=True)
+        ticket_model_data = {
+            "personal_id": self.set_personal_id(ID_number=data["ID_number"]),
+            "phone_num": self.set_phone_num(phone_number=data["phone_number"]),
+            "email": self.set_email_address(email_address=data["email_address"]),
+            "is_member": data["member"] == "True"
+        }
+
+        if data["member"] == "True":
+            ticket_model_data["member_radio"] = _parse_member_radio(page)
+            ticket_model_data["member_account"] = _parse_member_account(page, ID_number=data["ID_number"])
+        else:
+            ticket_model_data["member_radio"] = _parse_member_radio_not_member(page)
+
+        ticket_model = ConfirmTicketModel(**ticket_model_data)
+
+        json_params = ticket_model.json(by_alias=True, exclude_none=True)
         dict_params = json.loads(json_params)
         resp = self.client.submit_ticket(dict_params)
         return resp, ticket_model
@@ -65,6 +73,15 @@ def _parse_member_radio(page: BeautifulSoup) -> str:
     )
     return candidates.attrs['value'] if candidates else ''
 
+def _parse_member_radio_not_member(page: BeautifulSoup) -> str:
+    candidates = page.find(
+        'input',
+        attrs={
+            'name': 'TicketMemberSystemInputPanel:TakerMemberSystemDataView:memberSystemRadioGroup',
+            'id': 'memberSystemRadio3'
+        },
+    )
+    return candidates.attrs['value'] if candidates else ''
 
 def _parse_member_account(page: BeautifulSoup, ID_number) -> str:
     candidates = page.find(
