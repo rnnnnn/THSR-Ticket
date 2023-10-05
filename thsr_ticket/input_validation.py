@@ -1,4 +1,5 @@
 from datetime import datetime
+import json
 import re
 
 STATION_MIN = 1
@@ -38,6 +39,11 @@ def get_valid_input(prompt, validation_function, error_message):
             return user_input
         else:
             print(error_message)
+
+def read_profile_config(profile_file):
+    with open(profile_file, 'r') as profile:
+        profile = json.load(profile)
+        return profile
 
 def input_profile():
     profile = {}
