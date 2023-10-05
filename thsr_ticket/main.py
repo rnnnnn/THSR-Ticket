@@ -1,12 +1,18 @@
+import pathlib
 import sys
 import time
 sys.path.append("./")
 
-from input_validation import input_profile
+from input_validation import input_profile, read_profile_config
 from thsr_ticket.controller.booking_flow import BookingFlow
 
 def main():
-    profile = input_profile()
+    if pathlib.Path('profile').is_file():
+        profile = read_profile_config('profile')
+        print(profile)
+    else:
+        profile = input_profile()
+
     Booking_flag = True
     try:
         while Booking_flag:
