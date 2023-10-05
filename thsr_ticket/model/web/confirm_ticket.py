@@ -29,9 +29,15 @@ class ConfirmTicket(AbstractParams):
             "isGoBackM": "",
             "backHome": "",
             "TgoError": "1",
-            "TicketMemberSystemInputPanel:TakerMemberSystemDataView:memberSystemRadioGroup": self.member_radio,
-            "TicketMemberSystemInputPanel:TakerMemberSystemDataView:memberSystemRadioGroup:memberShipNumber": self.member_account,
+            # "TicketMemberSystemInputPanel:TakerMemberSystemDataView:memberSystemRadioGroup": self.member_radio,
+            # "TicketMemberSystemInputPanel:TakerMemberSystemDataView:memberSystemRadioGroup:memberShipNumber": self.member_account,
         }
+
+        if self.member_radio is not None:
+            params["TicketMemberSystemInputPanel:TakerMemberSystemDataView:memberSystemRadioGroup"] = self.member_radio
+        if self.member_account is not None:
+            params["TicketMemberSystemInputPanel:TakerMemberSystemDataView:memberSystemRadioGroup:memberShipNumber"] = self.member_account
+
 
         if val:
             validate(params, schema=CONFIRM_TICKET_SHEMA)
