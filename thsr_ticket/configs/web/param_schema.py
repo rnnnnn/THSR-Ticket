@@ -7,6 +7,7 @@ from pydantic import (
     Field,
     validator
 )
+from typing import Optional
 
 from thsr_ticket.configs.common import AVAILABLE_TIME_TABLE
 
@@ -240,13 +241,13 @@ class ConfirmTrainModel(BaseModel):
 class ConfirmTicketModel(BaseModel):
     personal_id: str = Field(..., alias='dummyId')
     phone_num: str = Field(..., alias='dummyPhone')
-    member_radio: str = Field(
-        ...,
+    member_radio: Optional["str"] = Field(
+        None,
         alias='TicketMemberSystemInputPanel:TakerMemberSystemDataView:memberSystemRadioGroup',
         description='非高鐵會員, 企業會員 / 高鐵會員 / 企業會員統編',
     )
-    member_account: str = Field(
-        ...,
+    member_account: Optional["str"] = Field(
+        None,
         alias='TicketMemberSystemInputPanel:TakerMemberSystemDataView:memberSystemRadioGroup:memberShipNumber',
         description='同取票人身分證字號'
     )
